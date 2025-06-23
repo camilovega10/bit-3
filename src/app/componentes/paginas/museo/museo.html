@@ -1,0 +1,54 @@
+<app-navegacion/>
+
+<div class="container mt-4">
+  <h2 class="mb-4 text-center">Arte valorado a nivel mundial</h2>
+  <div class="row">
+    <div class="col-md-4 mb-4" *ngFor="let museo of museos">
+      <div class="card h-100 shadow">
+        <img 
+          *ngIf="museo.image_id; else noImage" 
+          [src]="'https://www.artic.edu/iiif/2/' + museo.image_id + '/full/843,/0/default.jpg'" 
+          class="card-img-top" 
+          alt="{{ museo.title }}">
+        <ng-template #noImage>
+          <img src="../../../../assets/noimagen.PNG" class="card-img-top" alt="Imagen no disponible">
+        </ng-template>
+        <div class="card-body">
+          <h5 class="card-title">{{ museo.title }}</h5>
+          <p class="card-text">{{ museo.artist_display || 'Artista desconocido' }}</p>
+          <button class="btn btn-primary btn-sm" (click)="verDetalles(museo)" data-bs-toggle="modal" data-bs-target="#modalMuseo">
+            Ver detalles
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Bootstrap -->
+<div class="modal fade" id="modalMuseo" tabindex="-1" aria-labelledby="modalMuseoLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalMuseoLabel">{{ museoSeleccionado?.title }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body">
+        <img 
+          *ngIf="museoSeleccionado?.image_id" 
+          [src]="'https://www.artic.edu/iiif/2/' + museoSeleccionado.image_id + '/full/843,/0/default.jpg'" 
+          class="img-fluid mb-3" 
+          alt="{{ museoSeleccionado?.title }}">
+
+        <p><strong>Artista:</strong> {{ museoSeleccionado?.artist_display || 'Desconocido' }}</p>
+        <p><strong>ID:</strong> {{ museoSeleccionado?.id }}</p>
+        <p><strong>Fecha de creación:</strong> {{ museoSeleccionado?.date_display || 'No disponible' }}</p>
+        <p><strong>Departamento:</strong> {{ museoSeleccionado?.department_title || 'Sin información' }}</p>
+        <p><strong>Título original:</strong> {{ museoSeleccionado?.title }}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
