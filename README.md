@@ -6,3 +6,4 @@ Se realiza tres paginas basicas con una navegacion de dos de ellas ya que la otr
 
 ## Autor
 Cristian Camilo Vega Parra 17/06/2025
+[Cami-GitHub] {https://github.com/camilovega10}
